@@ -1,0 +1,52 @@
+package views
+
+// templ Hello(name string) {
+// 	<h2 class="text-3x1 font-bold underline">Hellooo, { name }</h2>
+// }
+
+type Name struct {
+	Name string
+}
+
+templ MakeHomePage(names []Name, count string) {
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test-Go</title>
+        <link href="/css/output.css" rel="stylesheet">
+        <script src="https://unpkg.com/htmx.org@2.0.0"
+        integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw"
+        crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h1 class="text-3xl font-bold underline">Hi from INDEX.html</h1>
+        <hr></hr>
+        for _, n := range names {
+            @Hello(n)
+
+        }
+
+        // <button hx-post="/count-up" hx-trigger="mousedown" hx-target="#count">+1</button>
+        <button
+            class="mt-4 p-2 bg-blue-500 text-white rounded"
+
+            hx-post="/count-up"
+            hx-target="#count"
+            hx-swap="innerHTML"
+        >+1</button>
+
+        <h1 id="count" class="text-4xl">{ count }</h1>
+
+        <script>
+            document.addEventListener("htmx:configRequest", (evt) => {
+                const { button, type } = evt?.detail?.triggeringEvent || {};
+                if (type === "mousedown" && button === 2) {
+                    evt.preventDefault()
+                }
+            });
+        </script>
+    </body>
+    </html>
+}

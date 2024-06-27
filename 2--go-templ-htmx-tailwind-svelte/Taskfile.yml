@@ -1,21 +1,26 @@
 version: '3'
 
+# --TODO--
+# Vite + Svelte
+# Browsersync
+
 vars:
     GREETING: Hello, World!
 
 tasks:
     default:
         deps: [task-once, task-watch]
+        
 
-
-
-    ### --- Run Once Tasks --- ###
+    ### --- Run-Once Tasks --- ###
     task-once:
-        deps: [go-air]
+        deps: [go-air, tailwind]
 
     go-air:
-        cmds:
-            - air
+        - air
+
+    tailwind:
+        - npx tailwindcss -i ./server/css/input.css -o ./server/css/output.css --watch
 
 
     ### --- Watch Tasks --- ###

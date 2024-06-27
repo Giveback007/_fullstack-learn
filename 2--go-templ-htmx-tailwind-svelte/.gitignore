@@ -3,3 +3,4 @@ templ-quickstart-main
 node_modules
 .env
 .task
+*_templ.go
