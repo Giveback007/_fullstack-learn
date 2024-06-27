@@ -1,0 +1,32 @@
+version: '3'
+
+vars:
+    GREETING: Hello, World!
+
+tasks:
+    default:
+        deps: [task-once, task-watch]
+
+
+
+    ### --- Run Once Tasks --- ###
+    task-once:
+        deps: [go-air]
+
+    go-air:
+        cmds:
+            - air
+
+
+    ### --- Watch Tasks --- ###
+    task-watch:
+        - task watchable --watch --interval 2s
+
+    watchable:
+        deps: [templ-watch]
+
+    templ-watch:
+        cmds:
+            - templ generate
+        sources:
+            - ./**/*.templ
